@@ -47,10 +47,13 @@
                         </goals>
                     </execution>
                 </executions>
+
                 <configuration>
                     <files>
                         <file>${basedir}/src/main/resources/application.properties</file>
                     </files>
+                    <outputFile/>
+                    <properties/>
                 </configuration>
             </plugin>
 
@@ -58,8 +61,11 @@
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-mysql</artifactId>
                 <configuration>
+                    <!--suppress UnresolvedMavenProperty -->
                     <url>${spring.datasource.url}</url>
+                    <!--suppress UnresolvedMavenProperty -->
                     <user>${spring.datasource.username}</user>
+                    <!--suppress UnresolvedMavenProperty -->
                     <password>${spring.datasource.password}</password>
                     <cleanDisabled>false</cleanDisabled>
                 </configuration>
@@ -87,8 +93,11 @@
 
                 <configuration>
                     <driver>mariadb</driver>
+                    <!--suppress UnresolvedMavenProperty -->
                     <url>${spring.datasource.url}</url>
+                    <!--suppress UnresolvedMavenProperty -->
                     <username>${spring.datasource.username}</username>
+                    <!--suppress UnresolvedMavenProperty -->
                     <password>${spring.datasource.password}</password>
                     <settingsKey>sensibleKey</settingsKey>
                     <fileset>
@@ -146,24 +155,18 @@
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
-            <version>2.3.4.RELEASE</version>
+            <version>2.5.2.RELEASE</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-jwt</artifactId>
-            <version>1.0.10.RELEASE</version>
-        </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-mysql</artifactId>
-
         </dependency>
 
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
-            <version>2.7.4</version>
+            <version>3.1.2</version>
         </dependency>
     </dependencies>
 
