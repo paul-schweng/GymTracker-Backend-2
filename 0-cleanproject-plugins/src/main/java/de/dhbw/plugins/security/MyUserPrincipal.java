@@ -11,13 +11,22 @@ import java.util.Collection;
 @Getter
 @AllArgsConstructor
 public class MyUserPrincipal implements UserDetails {
-    private final String username;
-    private final String password;
+    private final User user;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return user.getUsername();
     }
 
     @Override

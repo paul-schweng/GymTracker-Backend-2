@@ -20,5 +20,10 @@ public class UserRepositoryBridge implements UserRepository {
         return springDataUserRepository.existsByUsername(username);
     }
 
+    @Override
+    public void save(User user) {
+        springDataUserRepository.save(user);
+    }
+
 
 }

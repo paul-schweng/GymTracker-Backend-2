@@ -4,6 +4,10 @@ import de.dhbw.cleanproject.domain.user.User;
 
 public interface UserApplication {
 
-    public User findByUsername(String username);
+    User findByUsername(String username);
 
+    boolean existsByUsername(String username);
+
+
+    void createUser(User registerUser);
 }

@@ -20,6 +20,19 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <!--
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
@@ -47,33 +60,28 @@
                         </goals>
                     </execution>
                 </executions>
-
                 <configuration>
                     <files>
                         <file>${basedir}/src/main/resources/application.properties</file>
                     </files>
-                    <outputFile/>
-                    <properties/>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-mysql</artifactId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>9.15.1</version>
                 <configuration>
-                    <!--suppress UnresolvedMavenProperty -->
                     <url>${spring.datasource.url}</url>
-                    <!--suppress UnresolvedMavenProperty -->
                     <user>${spring.datasource.username}</user>
-                    <!--suppress UnresolvedMavenProperty -->
                     <password>${spring.datasource.password}</password>
                     <cleanDisabled>false</cleanDisabled>
                 </configuration>
                 <dependencies>
                     <dependency>
-                        <groupId>org.mariadb.jdbc</groupId>
-                        <artifactId>mariadb-java-client</artifactId>
-                        <version>2.7.4</version>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.5.4</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -85,19 +93,16 @@
 
                 <dependencies>
                     <dependency>
-                        <groupId>org.mariadb.jdbc</groupId>
-                        <artifactId>mariadb-java-client</artifactId>
-                        <version>2.7.4</version>
+                        <groupId>org.postgresql</groupId>
+                        <artifactId>postgresql</artifactId>
+                        <version>42.5.4</version>
                     </dependency>
                 </dependencies>
 
                 <configuration>
-                    <driver>mariadb</driver>
-                    <!--suppress UnresolvedMavenProperty -->
+                    <driver>org.postgresql.Driver</driver>
                     <url>${spring.datasource.url}</url>
-                    <!--suppress UnresolvedMavenProperty -->
                     <username>${spring.datasource.username}</username>
-                    <!--suppress UnresolvedMavenProperty -->
                     <password>${spring.datasource.password}</password>
                     <settingsKey>sensibleKey</settingsKey>
                     <fileset>
@@ -108,6 +113,7 @@
                     </fileset>
                 </configuration>
             </plugin>
+            -->
 
         </plugins>
     </build>
@@ -115,17 +121,12 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
         <dependency>
@@ -134,10 +135,11 @@
         </dependency>
 
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>9.15.1</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
         </dependency>
+
 
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -153,21 +155,17 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springframework.security.oauth</groupId>
-            <artifactId>spring-security-oauth2</artifactId>
-            <version>2.5.2.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-mysql</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
-            <version>3.1.2</version>
+            <scope>runtime</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
