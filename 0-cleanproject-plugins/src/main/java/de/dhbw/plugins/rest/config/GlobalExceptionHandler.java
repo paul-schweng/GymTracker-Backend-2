@@ -10,7 +10,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -38,10 +37,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(CustomException.class)
-    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ResponseBody
     public ResponseEntity<?> handleRuntimeException(CustomException ex) {
-        return new ResponseEntity<>(new ErrorResponse(ex.getMessage(), ex.getTitle()), HttpStatus.NOT_ACCEPTABLE);
+        return ResponseEntity.status(420).body(new ErrorResponse(ex.getMessage(), ex.getTitle()));
     }
 
 }
