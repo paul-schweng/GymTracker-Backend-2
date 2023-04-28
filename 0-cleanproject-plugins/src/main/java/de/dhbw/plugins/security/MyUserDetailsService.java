@@ -2,10 +2,8 @@ package de.dhbw.plugins.security;
 
 
 import de.dhbw.cleanproject.application.user.UserApplication;
-import de.dhbw.cleanproject.application.user.UserApplicationService;
 import de.dhbw.cleanproject.domain.user.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

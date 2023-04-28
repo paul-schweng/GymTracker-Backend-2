@@ -4,7 +4,6 @@ import de.dhbw.cleanproject.domain.exception.CustomException;
 import de.dhbw.cleanproject.domain.user.User;
 import de.dhbw.cleanproject.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 

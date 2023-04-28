@@ -2,8 +2,6 @@ package de.dhbw.plugins.rest.config;
 
 
 import de.dhbw.cleanproject.domain.exception.CustomException;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

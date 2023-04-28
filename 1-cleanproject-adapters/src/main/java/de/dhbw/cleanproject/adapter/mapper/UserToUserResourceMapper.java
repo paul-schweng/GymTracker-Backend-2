@@ -1,8 +1,6 @@
 package de.dhbw.cleanproject.adapter.mapper;
 
-import de.dhbw.cleanproject.adapter.book.BookResource;
 import de.dhbw.cleanproject.adapter.resource.UserResource;
-import de.dhbw.cleanproject.domain.book.Book;
 import de.dhbw.cleanproject.domain.user.User;
 import org.springframework.stereotype.Component;
 
