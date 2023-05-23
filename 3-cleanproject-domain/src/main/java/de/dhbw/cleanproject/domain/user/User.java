@@ -1,17 +1,19 @@
 package de.dhbw.cleanproject.domain.user;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
 @Entity
 @Builder
-public class User {
+public class User implements UserDetails {
 
 
     @Id
@@ -26,5 +28,41 @@ public class User {
 
     private String name;
 
+    public void setName(String name) {
+        this.name = name.trim();
+    }
+
+    public void setUsername(String username) {
+        this.username = username.trim();
+    }
+
+
+    /* --------------------------------- */
+    /* UserDetails interface methods */
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
 
 }

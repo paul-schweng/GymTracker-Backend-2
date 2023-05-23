@@ -1,6 +1,7 @@
 package de.dhbw.cleanproject.application.user;
 
 import de.dhbw.cleanproject.domain.user.User;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public interface UserApplication {
 
@@ -10,4 +11,6 @@ public interface UserApplication {
 
 
     void createUser(User registerUser);
+
+    User encryptPassword(User user, PasswordEncoder passwordEncoder);
 }

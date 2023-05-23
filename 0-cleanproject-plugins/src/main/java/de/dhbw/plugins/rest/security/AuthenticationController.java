@@ -4,7 +4,6 @@ import de.dhbw.cleanproject.adapter.mapper.UserToUserResourceMapper;
 import de.dhbw.cleanproject.adapter.resource.UserResource;
 import de.dhbw.cleanproject.application.user.UserApplication;
 import de.dhbw.cleanproject.domain.user.User;
-import de.dhbw.plugins.security.MyUserPrincipal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +27,9 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User registerUser){
-        registerUser.setPassword(passwordEncoder.encode(registerUser.getPassword()));
-        userApplication.createUser(registerUser);
+        User encryptedPasswordUser = userApplication.encryptPassword(registerUser, passwordEncoder);
+        userApplication.createUser(encryptedPasswordUser);
+
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -38,13 +38,15 @@ public class AuthenticationController {
         boolean exists = userApplication.existsByUsername(username);
         Map<String, Boolean> map = new HashMap<>();
         map.put("available", !exists);
+
         return ResponseEntity.ok(map);
     }
 
     @GetMapping("/iAm")
     public ResponseEntity<?> getUser(){
-        MyUserPrincipal principal = (MyUserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        UserResource user = userToUserResourceMapper.apply(principal.getUser());
+        User principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserResource user = userToUserResourceMapper.apply(principal);
+
         return ResponseEntity.ok(user);
     }
 

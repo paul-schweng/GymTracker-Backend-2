@@ -5,6 +5,7 @@ import de.dhbw.cleanproject.domain.user.User;
 import de.dhbw.cleanproject.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -40,6 +41,16 @@ public class UserApplicationService implements UserApplication {
                 .build();
 
         userRepository.save(user);
+    }
+
+
+    @Override
+    public User encryptPassword(User rawPasswordUser, PasswordEncoder passwordEncoder) {
+        return User.builder()
+                .name(rawPasswordUser.getName())
+                .username(rawPasswordUser.getUsername())
+                .password(passwordEncoder.encode(rawPasswordUser.getPassword()))
+                .build();
     }
 
 
