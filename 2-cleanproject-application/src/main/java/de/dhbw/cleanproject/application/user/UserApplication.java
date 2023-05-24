@@ -12,5 +12,4 @@ public interface UserApplication {
 
     void createUser(User registerUser);
 
-    User encryptPassword(User user, PasswordEncoder passwordEncoder);
 }

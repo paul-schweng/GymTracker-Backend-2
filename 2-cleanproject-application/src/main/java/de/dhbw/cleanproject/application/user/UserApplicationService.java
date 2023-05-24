@@ -8,13 +8,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserApplicationService implements UserApplication {
 
     private final UserRepository userRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
 
 
@@ -32,25 +33,10 @@ public class UserApplicationService implements UserApplication {
             throw new CustomException("Username already exists!", "Failed to create user");
         }
 
-        System.out.println(UUID.randomUUID());
-        User user = User.builder()
-                .id(UUID.randomUUID())
-                .name(registerUser.getName())
-                .username(registerUser.getUsername())
-                .password(registerUser.getPassword())
-                .build();
+        String encryptedPassword = passwordEncoder.encode(registerUser.getPassword());
+        registerUser.setPassword(encryptedPassword);
 
-        userRepository.save(user);
-    }
-
-
-    @Override
-    public User encryptPassword(User rawPasswordUser, PasswordEncoder passwordEncoder) {
-        return User.builder()
-                .name(rawPasswordUser.getName())
-                .username(rawPasswordUser.getUsername())
-                .password(passwordEncoder.encode(rawPasswordUser.getPassword()))
-                .build();
+        userRepository.save(registerUser);
     }
 
 

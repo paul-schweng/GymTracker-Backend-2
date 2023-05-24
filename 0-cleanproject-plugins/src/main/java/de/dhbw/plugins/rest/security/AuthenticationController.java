@@ -27,8 +27,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody User registerUser){
-        User encryptedPasswordUser = userApplication.encryptPassword(registerUser, passwordEncoder);
-        userApplication.createUser(encryptedPasswordUser);
+        userApplication.createUser(registerUser);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
