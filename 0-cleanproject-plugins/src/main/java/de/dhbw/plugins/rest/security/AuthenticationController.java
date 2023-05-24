@@ -2,7 +2,7 @@ package de.dhbw.plugins.rest.security;
 
 import de.dhbw.cleanproject.adapter.mapper.UserToUserResourceMapper;
 import de.dhbw.cleanproject.adapter.resource.UserResource;
-import de.dhbw.cleanproject.application.user.UserApplication;
+import de.dhbw.cleanproject.domain.user.UserApplication;
 import de.dhbw.cleanproject.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

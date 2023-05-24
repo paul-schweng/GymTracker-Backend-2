@@ -1,7 +1,7 @@
 package de.dhbw.plugins.security;
 
+import de.dhbw.cleanproject.domain.user.UserApplication;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private MyUserDetailsService userDetailsService;
+    private UserApplication userApplication;
 
 
     @Bean
@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                     .alwaysRemember(true)
-                    .userDetailsService(userDetailsService)
+                    .userDetailsService(userApplication)
                     .tokenValiditySeconds(7 * 24 * 60 * 60) // expiration time: 7 days
                     .key("AbcdefghiJklmNoPqRstUvXyz") // cookies will survive if restarted
                 ;

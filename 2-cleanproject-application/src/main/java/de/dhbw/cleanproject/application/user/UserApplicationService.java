@@ -2,9 +2,12 @@ package de.dhbw.cleanproject.application.user;
 
 import de.dhbw.cleanproject.domain.exception.CustomException;
 import de.dhbw.cleanproject.domain.user.User;
+import de.dhbw.cleanproject.domain.user.UserApplication;
 import de.dhbw.cleanproject.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +40,16 @@ public class UserApplicationService implements UserApplication {
         registerUser.setPassword(encryptedPassword);
 
         userRepository.save(registerUser);
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        return user;
     }
 
 
