@@ -1,6 +1,7 @@
 package de.dhbw.cleanproject.domain.user;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @Entity
 @Builder
 public class User implements UserDetails {
@@ -18,6 +20,8 @@ public class User implements UserDetails {
 
     @Id
     @Column(nullable = false)
+    @GenericGenerator(name = "client_id", strategy = "de.dhbw.cleanproject.abstractioncode.JpaIdGenerator")
+    @GeneratedValue(generator = "client_id")
     private UUID id;
 
     @Column(unique=true)
