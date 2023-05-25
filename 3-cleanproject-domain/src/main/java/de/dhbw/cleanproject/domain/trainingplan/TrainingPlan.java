@@ -5,6 +5,7 @@ import de.dhbw.cleanproject.domain.exercise.Exercise;
 import de.dhbw.cleanproject.domain.user.User;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
@@ -21,6 +22,7 @@ public class TrainingPlan {
     @Column(name = "id", nullable = false)
     @GenericGenerator(name = "client_id", strategy = "de.dhbw.cleanproject.abstractioncode.JpaIdGenerator")
     @GeneratedValue(generator = "client_id")
+    @Type(type="uuid-char")
     private UUID id;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
