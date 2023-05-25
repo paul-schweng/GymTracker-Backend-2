@@ -2,14 +2,12 @@ package de.dhbw.plugins.rest;
 
 import de.dhbw.cleanproject.adapter.bodydata.BodyDataDTO;
 import de.dhbw.cleanproject.adapter.bodydata.BodyDataDtoToBodyDataMapper;
-import de.dhbw.cleanproject.adapter.mapper.BodyDataToBodyDataResourceMapper;
+import de.dhbw.cleanproject.adapter.bodydata.BodyDataToBodyDataResourceMapper;
 import de.dhbw.cleanproject.domain.bodydata.*;
 import lombok.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.*;
 
 @RestController
 @RequestMapping("/data")

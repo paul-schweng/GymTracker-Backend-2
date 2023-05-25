@@ -1,4 +1,4 @@
-package de.dhbw.cleanproject.adapter.resource;
+package de.dhbw.cleanproject.adapter.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

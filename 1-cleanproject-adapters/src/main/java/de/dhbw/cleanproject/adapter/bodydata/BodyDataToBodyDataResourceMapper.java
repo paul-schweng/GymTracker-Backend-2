@@ -1,7 +1,7 @@
-package de.dhbw.cleanproject.adapter.mapper;
+package de.dhbw.cleanproject.adapter.bodydata;
 
-import de.dhbw.cleanproject.adapter.resource.BodyDataResource;
-import de.dhbw.cleanproject.adapter.resource.RightLeftResource;
+import de.dhbw.cleanproject.adapter.bodydata.RightLeftDTO;
+import de.dhbw.cleanproject.adapter.bodydata.RightLeftResource;
 import de.dhbw.cleanproject.domain.bodydata.*;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.function.Function;
 
 @Component
-public class BodyDataToBodyDataResourceMapper implements Function<BodyData, BodyDataResource> {
+public class BodyDataToBodyDataResourceMapper implements Function<BodyData, RightLeftDTO.BodyDataResource> {
     @Override
-    public BodyDataResource apply(BodyData bodyData) {
+    public RightLeftDTO.BodyDataResource apply(BodyData bodyData) {
         if(bodyData == null)
             return null;
 
@@ -20,8 +20,8 @@ public class BodyDataToBodyDataResourceMapper implements Function<BodyData, Body
 
     }
 
-    private BodyDataResource map(BodyData bodyData) {
-        BodyDataResource bodyParts = new BodyDataResource();
+    private RightLeftDTO.BodyDataResource map(BodyData bodyData) {
+        RightLeftDTO.BodyDataResource bodyParts = new RightLeftDTO.BodyDataResource();
 
         for (BodyPartType type : BodyPartType.values()) {
             String key = type.name().toLowerCase();

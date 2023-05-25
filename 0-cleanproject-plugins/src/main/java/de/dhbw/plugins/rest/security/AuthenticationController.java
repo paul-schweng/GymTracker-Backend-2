@@ -1,7 +1,7 @@
 package de.dhbw.plugins.rest.security;
 
-import de.dhbw.cleanproject.adapter.mapper.UserToUserResourceMapper;
-import de.dhbw.cleanproject.adapter.resource.UserResource;
+import de.dhbw.cleanproject.adapter.user.UserToUserResourceMapper;
+import de.dhbw.cleanproject.adapter.user.UserResource;
 import de.dhbw.cleanproject.domain.user.UserApplication;
 import de.dhbw.cleanproject.domain.user.User;
 import lombok.RequiredArgsConstructor;
