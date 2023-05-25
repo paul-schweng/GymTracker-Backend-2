@@ -19,7 +19,6 @@ import java.util.UUID;
 public class Exercise {
 
     @Id
-    @Column(nullable = false)
     @GenericGenerator(name = "client_id", strategy = "de.dhbw.cleanproject.abstractioncode.JpaIdGenerator")
     @GeneratedValue(generator = "client_id")
     @Type(type="uuid-char")

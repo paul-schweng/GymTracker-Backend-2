@@ -1,31 +1,49 @@
 package de.dhbw.plugins.rest;
 
+import de.dhbw.cleanproject.adapter.trainingplan.CreatePlanDtoToTrainingPlanMapper;
+import de.dhbw.cleanproject.adapter.trainingplan.CreateTrainingPlanDTO;
+import de.dhbw.cleanproject.adapter.trainingplan.TrainingPlanResource;
+import de.dhbw.cleanproject.adapter.trainingplan.TrainingPlanToPlanResourceMapper;
+import de.dhbw.cleanproject.domain.exercise.ExerciseApplication;
+import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
+import de.dhbw.cleanproject.domain.trainingplan.TrainingPlanApplication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/training")
 @RequiredArgsConstructor
 public class TrainingPlanController {
 
+    private final TrainingPlanApplication trainingPlanApplication;
+    private final ExerciseApplication exerciseApplication;
+    private final CreatePlanDtoToTrainingPlanMapper createPlanDtoToTrainingPlanMapper;
+    private final TrainingPlanToPlanResourceMapper trainingPlanToPlanResourceMapper;
 
     @PostMapping
-    public ResponseEntity<?> createTrainingPlan(){
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity<?> addTrainingPlan(@RequestBody CreateTrainingPlanDTO newTrainingPlanDto){
+        TrainingPlan newTrainingPlan = createPlanDtoToTrainingPlanMapper.apply(newTrainingPlanDto);
+        trainingPlanApplication.addTrainingPlan(newTrainingPlan);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
 
     @PutMapping
-    public ResponseEntity<?> updateTrainingPlan(){
+    public ResponseEntity<?> updateTrainingPlan(@RequestBody TrainingPlan updatedTrainingPlan){
+        trainingPlanApplication.addTrainingPlan(updatedTrainingPlan);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
     @GetMapping
     public ResponseEntity<?> getTrainingPlans(){
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<TrainingPlanResource> plans = trainingPlanApplication.getTrainingPlans().stream().map(trainingPlanToPlanResourceMapper).collect(Collectors.toList());
+        return ResponseEntity.ok(plans);
     }
 
 

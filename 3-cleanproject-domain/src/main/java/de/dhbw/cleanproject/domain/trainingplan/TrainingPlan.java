@@ -1,6 +1,7 @@
 package de.dhbw.cleanproject.domain.trainingplan;
 
 
+import de.dhbw.cleanproject.domain.exception.CustomException;
 import de.dhbw.cleanproject.domain.exercise.Exercise;
 import de.dhbw.cleanproject.domain.user.User;
 import lombok.*;
@@ -19,39 +20,53 @@ import java.util.UUID;
 @Entity
 public class TrainingPlan {
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     @GenericGenerator(name = "client_id", strategy = "de.dhbw.cleanproject.abstractioncode.JpaIdGenerator")
-    @GeneratedValue(generator = "client_id")
+    @GeneratedValue(generator = "client_id", strategy = GenerationType.AUTO)
     @Type(type="uuid-char")
     private UUID id;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="training_plan_monday")
     private List<Exercise> mondayExercises;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="training_plan_tuesday")
     private List<Exercise> tuesdayExercises;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="training_plan_wednesday")
     private List<Exercise> wednesdayExercises;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="training_plan_thursday")
     private List<Exercise> thursdayExercises;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="training_plan_friday")
     private List<Exercise> fridayExercises;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="training_plan_saturday")
     private List<Exercise> saturdayExercises;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="training_plan_sunday")
     private List<Exercise> sundayExercises;
 
+
+
     private String name;
+
+    /**
+     * Duration in weeks
+     */
     private Integer duration;
     private String startDate;
     private String endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private User user;
+
 
 }

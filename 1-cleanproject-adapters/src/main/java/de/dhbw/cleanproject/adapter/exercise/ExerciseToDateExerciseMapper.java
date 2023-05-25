@@ -1,4 +1,4 @@
-package de.dhbw.cleanproject.adapter.mapper;
+package de.dhbw.cleanproject.adapter.exercise;
 
 import de.dhbw.cleanproject.application.exercise.data.DateExerciseData;
 import de.dhbw.cleanproject.domain.exercise.Exercise;
