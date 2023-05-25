@@ -1,22 +1,39 @@
 package de.dhbw.cleanproject.domain.bodydata;
 
-public enum BodyPart {
-    WEIGHT(false),
-    BREAST(false),
-    HIP(false),
-    WAIST(false),
-    SHOULDERS(false),
-    BICEP(true),
-    FOREARM(true),
-    LEG(true);
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-    private final boolean dual;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
-    BodyPart(boolean dual) {
-        this.dual = dual;
-    }
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Entity
+@Builder
+public class BodyPart {
 
-    public boolean isDual() {
-        return this.dual;
-    }
+    @Id
+    @GenericGenerator(name = "client_id", strategy = "de.dhbw.cleanproject.abstractioncode.JpaIdGenerator")
+    @GeneratedValue(generator = "client_id")
+    @Type(type="uuid-char")
+    private UUID id;
+
+    @Enumerated(EnumType.STRING)
+    private BodyPartType type;  // Enum for BodyPartType
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BodyMeasurement> measurements = new ArrayList<>();
+
+    @Column(name = "side")
+    @Enumerated(EnumType.STRING)
+    private BodySide side;
+
+
+
+    // ... constructors, getters, setters
 }

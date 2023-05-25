@@ -2,6 +2,7 @@ package de.dhbw.cleanproject.domain.user;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -23,6 +24,7 @@ public class User implements UserDetails, Serializable {
     @Column(nullable = false)
     @GenericGenerator(name = "client_id", strategy = "de.dhbw.cleanproject.abstractioncode.JpaIdGenerator")
     @GeneratedValue(generator = "client_id")
+    @Type(type="uuid-char")
     private UUID id;
 
     @Column(unique=true)

@@ -2,6 +2,8 @@ package de.dhbw.cleanproject.domain.user;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.util.UUID;
+
 public interface UserApplication extends UserDetailsService {
 
     User findByUsername(String username);
@@ -10,5 +12,7 @@ public interface UserApplication extends UserDetailsService {
 
 
     void createUser(User registerUser);
+
+    User findById(UUID id);
 
 }

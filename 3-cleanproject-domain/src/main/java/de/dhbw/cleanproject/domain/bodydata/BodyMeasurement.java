@@ -1,32 +1,29 @@
 package de.dhbw.cleanproject.domain.bodydata;
 
-import de.dhbw.cleanproject.domain.bodydata.rightleft.Side;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type")
+@Getter
+@Builder
 @NoArgsConstructor
-public abstract class BodyMeasurement {
+@AllArgsConstructor
+@Setter
+public class BodyMeasurement {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    @GenericGenerator(name = "client_id", strategy = "de.dhbw.cleanproject.abstractioncode.JpaIdGenerator")
+    @GeneratedValue(generator = "client_id")
+    @Type(type="uuid-char")
+    private UUID id;
 
-    @Enumerated(EnumType.STRING)
-    protected BodyPart bodyPart;
+    private String date;
 
-    public BodyMeasurement(BodyPart bodyPart) {
-        this.bodyPart = bodyPart;
-    }
-
-    public BodyPart getBodyPart() {
-        return bodyPart;
-    }
-
-    public abstract void addMeasurement(TimeSeriesBodyData data, Side side);
+    private Double value;
 
 
 }

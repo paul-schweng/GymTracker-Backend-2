@@ -5,6 +5,8 @@ import de.dhbw.cleanproject.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Repository
 public class UserRepositoryBridge implements UserRepository {
@@ -23,6 +25,11 @@ public class UserRepositoryBridge implements UserRepository {
     @Override
     public void save(User user) {
         springDataUserRepository.save(user);
+    }
+
+    @Override
+    public User findById(UUID id) {
+        return springDataUserRepository.findById(id).orElse(null);
     }
 
 
