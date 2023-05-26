@@ -37,7 +37,7 @@ public class ExercisesController {
 
     @GetMapping
     public ResponseEntity<?> getExercises(){
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok(exerciseApplication.getExercises());
     }
 
 }

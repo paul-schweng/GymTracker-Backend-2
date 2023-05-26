@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Data
 public class ExerciseDTO {
-    private UUID id;
+
     private String name;
     private Integer sets;
     private Integer reps;

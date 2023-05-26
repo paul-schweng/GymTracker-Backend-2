@@ -11,6 +11,8 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -68,5 +70,10 @@ public class TrainingPlan {
     @ManyToOne
     private User user;
 
+    public List<Exercise> getAllExercises() {
+        return Stream.of(mondayExercises, tuesdayExercises, wednesdayExercises, thursdayExercises, fridayExercises, saturdayExercises, sundayExercises)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+    }
 
 }

@@ -15,7 +15,6 @@ public class ExerciseDtoToExerciseMapper {
 
     private Exercise map(ExerciseDTO exerciseDTO, TrainingPlan plan) {
         return Exercise.builder()
-                .id(exerciseDTO.getId())
                 .name(exerciseDTO.getName())
                 .sets(exerciseDTO.getSets())
                 .reps(exerciseDTO.getReps())

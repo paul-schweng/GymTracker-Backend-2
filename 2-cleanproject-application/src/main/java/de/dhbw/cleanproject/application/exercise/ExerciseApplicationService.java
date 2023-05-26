@@ -1,17 +1,16 @@
 package de.dhbw.cleanproject.application.exercise;
 
+import de.dhbw.cleanproject.domain.exercise.data.DateExerciseData;
 import de.dhbw.cleanproject.domain.exercise.Exercise;
 import de.dhbw.cleanproject.domain.exercise.ExerciseApplication;
 import de.dhbw.cleanproject.domain.exercise.ExerciseRepository;
+import de.dhbw.cleanproject.domain.trainingplan.TrainingPlanApplication;
 import de.dhbw.cleanproject.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -19,6 +18,8 @@ import java.util.stream.Collectors;
 public class ExerciseApplicationService implements ExerciseApplication {
 
     private final ExerciseRepository exerciseRepository;
+    private final TrainingPlanApplication trainingPlanApplication;
+    private final ExerciseToDateExerciseMapper exerciseToDateExerciseMapper;
 
     /**
      * If the user has performed an exercise, the method returns the latest exercise performed by the user. <br>
@@ -66,7 +67,20 @@ public class ExerciseApplicationService implements ExerciseApplication {
     }
 
     @Override
-    public List<Exercise> getExercises() {
-        return null;
+    public Map<String, List<DateExerciseData>> getExercises() {
+
+        List<Exercise> allExercises = new ArrayList<>();
+
+        trainingPlanApplication.getTrainingPlans().forEach(trainingPlan -> {
+            allExercises.addAll(trainingPlan.getAllExercises());
+        });
+
+        // Convert to DateExerciseData and group by name
+        Map<String, List<DateExerciseData>> groupedExercises = allExercises.stream()
+                .map(exerciseToDateExerciseMapper)
+                .distinct()
+                .collect(Collectors.groupingBy(DateExerciseData::getName));
+
+        return groupedExercises;
     }
 }
