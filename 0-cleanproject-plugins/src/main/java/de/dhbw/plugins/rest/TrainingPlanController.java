@@ -1,9 +1,6 @@
 package de.dhbw.plugins.rest;
 
-import de.dhbw.cleanproject.adapter.trainingplan.CreatePlanDtoToTrainingPlanMapper;
-import de.dhbw.cleanproject.adapter.trainingplan.CreateTrainingPlanDTO;
-import de.dhbw.cleanproject.adapter.trainingplan.TrainingPlanResource;
-import de.dhbw.cleanproject.adapter.trainingplan.TrainingPlanToPlanResourceMapper;
+import de.dhbw.cleanproject.adapter.trainingplan.*;
 import de.dhbw.cleanproject.domain.exercise.ExerciseApplication;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlanApplication;
@@ -13,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -24,6 +22,7 @@ public class TrainingPlanController {
     private final ExerciseApplication exerciseApplication;
     private final CreatePlanDtoToTrainingPlanMapper createPlanDtoToTrainingPlanMapper;
     private final TrainingPlanToPlanResourceMapper trainingPlanToPlanResourceMapper;
+    private final UpdatePlanDtoToTrainingPlanMapper updateTrainingPlanDtoToTrainingPlanMapper;
 
     @PostMapping
     public ResponseEntity<?> addTrainingPlan(@RequestBody CreateTrainingPlanDTO newTrainingPlanDto){
@@ -34,8 +33,9 @@ public class TrainingPlanController {
 
 
     @PutMapping
-    public ResponseEntity<?> updateTrainingPlan(@RequestBody TrainingPlan updatedTrainingPlan){
-        trainingPlanApplication.addTrainingPlan(updatedTrainingPlan);
+    public ResponseEntity<?> updateTrainingPlan(@RequestBody UpdateTrainingPlanDTO updatedTrainingPlanDto){
+        TrainingPlan updatedTrainingPlan = updateTrainingPlanDtoToTrainingPlanMapper.apply(updatedTrainingPlanDto);
+        trainingPlanApplication.updateTrainingPlan(updatedTrainingPlan);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -44,6 +44,12 @@ public class TrainingPlanController {
     public ResponseEntity<?> getTrainingPlans(){
         List<TrainingPlanResource> plans = trainingPlanApplication.getTrainingPlans().stream().map(trainingPlanToPlanResourceMapper).collect(Collectors.toList());
         return ResponseEntity.ok(plans);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTrainingPlan(@PathVariable("id") UUID id){
+        trainingPlanApplication.deleteTrainingPlan(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 

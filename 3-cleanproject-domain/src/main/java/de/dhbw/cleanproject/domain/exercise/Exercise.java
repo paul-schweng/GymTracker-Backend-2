@@ -1,13 +1,12 @@
 package de.dhbw.cleanproject.domain.exercise;
 
+import com.sun.istack.NotNull;
+import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -27,5 +26,10 @@ public class Exercise {
     private Integer sets;
     private Integer reps;
     private Double weight;
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(nullable = false)
+    private TrainingPlan trainingPlan;
 
 }

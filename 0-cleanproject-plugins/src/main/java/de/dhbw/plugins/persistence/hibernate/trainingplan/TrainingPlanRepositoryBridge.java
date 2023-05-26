@@ -31,4 +31,10 @@ public class TrainingPlanRepositoryBridge implements TrainingPlanRepository {
         repository.save(trainingPlan);
     }
 
+
+    @Override
+    public TrainingPlan findById(UUID trainingPlanId) {
+        return repository.findById(trainingPlanId).orElse(null);
+    }
+
 }

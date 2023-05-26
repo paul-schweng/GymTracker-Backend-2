@@ -1,12 +1,18 @@
 package de.dhbw.cleanproject.adapter.trainingplan;
 
+import de.dhbw.cleanproject.adapter.exercise.ExerciseToExerciseResourceMapper;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
+@RequiredArgsConstructor
 public class TrainingPlanToPlanResourceMapper implements Function<TrainingPlan, TrainingPlanResource> {
+
+    private final ExerciseToExerciseResourceMapper exerciseToExerciseResourceMapper;
 
     @Override
     public TrainingPlanResource apply(TrainingPlan trainingPlan) {
@@ -15,13 +21,13 @@ public class TrainingPlanToPlanResourceMapper implements Function<TrainingPlan, 
 
     private TrainingPlanResource map(TrainingPlan trainingPlan) {
         ExercisesResource exercises = ExercisesResource.builder()
-                .monday(trainingPlan.getMondayExercises())
-                .tuesday(trainingPlan.getTuesdayExercises())
-                .wednesday(trainingPlan.getWednesdayExercises())
-                .thursday(trainingPlan.getThursdayExercises())
-                .friday(trainingPlan.getFridayExercises())
-                .saturday(trainingPlan.getSaturdayExercises())
-                .sunday(trainingPlan.getSundayExercises())
+                .monday(trainingPlan.getMondayExercises().stream().map(exerciseToExerciseResourceMapper).collect(Collectors.toList()))
+                .tuesday(trainingPlan.getTuesdayExercises().stream().map(exerciseToExerciseResourceMapper).collect(Collectors.toList()))
+                .wednesday(trainingPlan.getWednesdayExercises().stream().map(exerciseToExerciseResourceMapper).collect(Collectors.toList()))
+                .thursday(trainingPlan.getThursdayExercises().stream().map(exerciseToExerciseResourceMapper).collect(Collectors.toList()))
+                .friday(trainingPlan.getFridayExercises().stream().map(exerciseToExerciseResourceMapper).collect(Collectors.toList()))
+                .saturday(trainingPlan.getSaturdayExercises().stream().map(exerciseToExerciseResourceMapper).collect(Collectors.toList()))
+                .sunday(trainingPlan.getSundayExercises().stream().map(exerciseToExerciseResourceMapper).collect(Collectors.toList()))
                 .build();
 
         return TrainingPlanResource.builder()

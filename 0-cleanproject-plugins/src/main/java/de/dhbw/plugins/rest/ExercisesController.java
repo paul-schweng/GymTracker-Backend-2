@@ -1,5 +1,8 @@
 package de.dhbw.plugins.rest;
 
+import de.dhbw.cleanproject.adapter.exercise.ExerciseToExerciseResourceMapper;
+import de.dhbw.cleanproject.domain.exercise.Exercise;
+import de.dhbw.cleanproject.domain.exercise.ExerciseApplication;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,11 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/exercises")
 @RequiredArgsConstructor
 public class ExercisesController {
 
+    private final ExerciseApplication exerciseApplication;
+    private final ExerciseToExerciseResourceMapper exerciseToExerciseResourceMapper;
 
     /**
      * Get all exercises with the given name
@@ -23,7 +31,8 @@ public class ExercisesController {
      */
     @GetMapping("/autocomplete")
     public ResponseEntity<?> getAllLatestExercisesByName(@RequestParam("q") String partialName){
-        return new ResponseEntity<>(HttpStatus.OK);
+        List<Exercise> exercises = exerciseApplication.getAllLatestExercisesByName(partialName);
+        return ResponseEntity.ok(exercises.stream().map(exerciseToExerciseResourceMapper).collect(Collectors.toList()));
     }
 
     @GetMapping

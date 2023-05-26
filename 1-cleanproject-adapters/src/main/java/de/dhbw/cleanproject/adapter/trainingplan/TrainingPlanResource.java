@@ -1,11 +1,13 @@
 package de.dhbw.cleanproject.adapter.trainingplan;
 
+import de.dhbw.cleanproject.adapter.exercise.ExerciseResource;
 import de.dhbw.cleanproject.domain.exercise.Exercise;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,12 +21,11 @@ public class TrainingPlanResource {
 
     private final String name;
     private final Integer duration;
-    private final String startDate;
-    private final String endDate;
+    private final LocalDate startDate, endDate;
 }
 
 @Data
 @Builder
 class ExercisesResource {
-    private List<Exercise> monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+    private List<ExerciseResource> monday, tuesday, wednesday, thursday, friday, saturday, sunday;
 }

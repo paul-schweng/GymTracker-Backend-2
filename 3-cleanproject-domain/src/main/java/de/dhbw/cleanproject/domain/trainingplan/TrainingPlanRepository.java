@@ -13,4 +13,6 @@ public interface TrainingPlanRepository {
 
     void save(TrainingPlan trainingPlan);
 
+    TrainingPlan findById(UUID trainingPlanId);
+
 }

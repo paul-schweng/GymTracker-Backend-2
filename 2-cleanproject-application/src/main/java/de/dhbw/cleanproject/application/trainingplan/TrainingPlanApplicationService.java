@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.RelationNotFoundException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -30,11 +31,49 @@ public class TrainingPlanApplicationService implements TrainingPlanApplication {
 
     @Override
     public void deleteTrainingPlan(UUID trainingPlanId) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        TrainingPlan actualPlan = trainingPlanRepository.findById(trainingPlanId);
+
+        if(actualPlan == null) {
+            throw new CustomException("Training Plan not found", "Not Found");
+        } else if (!actualPlan.getUser().getId().equals(user.getId())){
+            throw new CustomException("Training Plan does not belong to user", "Not Authorized");
+        }
+
         trainingPlanRepository.deleteById(trainingPlanId);
     }
 
     @Override
-    public void updateTrainingPlan(TrainingPlan trainingPlan) {
+    public void updateTrainingPlan(TrainingPlan updatedPlan) {
+        validateTrainingPlan(updatedPlan);
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        TrainingPlan actualPlan = trainingPlanRepository.findById(updatedPlan.getId());
+
+        if(actualPlan == null) {
+            throw new CustomException("Training Plan not found", "Not Found");
+        } else if (!actualPlan.getUser().getId().equals(user.getId())){
+            throw new CustomException("Training Plan does not belong to user", "Not Authorized");
+        }
+
+        TrainingPlan plan = TrainingPlan.builder()
+                .id(actualPlan.getId())
+                .user(user)
+                .name(updatedPlan.getName())
+                .duration(updatedPlan.getDuration())
+                .startDate(updatedPlan.getStartDate())
+                .endDate(updatedPlan.getEndDate())
+
+                .mondayExercises(updatedPlan.getMondayExercises())
+                .tuesdayExercises(updatedPlan.getTuesdayExercises())
+                .wednesdayExercises(updatedPlan.getWednesdayExercises())
+                .thursdayExercises(updatedPlan.getThursdayExercises())
+                .fridayExercises(updatedPlan.getFridayExercises())
+                .saturdayExercises(updatedPlan.getSaturdayExercises())
+                .sundayExercises(updatedPlan.getSundayExercises())
+                .build();
+
+        trainingPlanRepository.save(plan);
 
     }
 
@@ -61,14 +100,12 @@ public class TrainingPlanApplicationService implements TrainingPlanApplication {
         }
 
         // Comparing start date and end date
-        LocalDate startDate = LocalDate.parse(trainingPlan.getStartDate(), DateTimeFormatter.ISO_DATE);
-        LocalDate endDate = LocalDate.parse(trainingPlan.getEndDate(), DateTimeFormatter.ISO_DATE);
-        if (startDate.isAfter(endDate)) {
+        if (trainingPlan.getStartDate().isAfter(trainingPlan.getEndDate())) {
             throw new CustomException("Start Date of Training Plan cannot be after the End Date", "Invalid dates");
         }
 
         // Checking if duration in weeks matches the difference between start and end date
-        long weeksBetween = ChronoUnit.WEEKS.between(startDate, endDate);
+        long weeksBetween = ChronoUnit.WEEKS.between(trainingPlan.getStartDate(), trainingPlan.getEndDate());
         if (weeksBetween != trainingPlan.getDuration()) {
             throw new CustomException("Duration doesn't match the difference in weeks between start and end date", "Invalid duration");
         }

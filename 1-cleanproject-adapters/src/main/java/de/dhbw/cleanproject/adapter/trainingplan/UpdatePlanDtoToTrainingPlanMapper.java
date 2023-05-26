@@ -13,23 +13,25 @@ import java.util.function.Function;
 
 @Component
 @RequiredArgsConstructor
-public class CreatePlanDtoToTrainingPlanMapper implements Function<CreateTrainingPlanDTO, TrainingPlan> {
+public class UpdatePlanDtoToTrainingPlanMapper implements Function<UpdateTrainingPlanDTO, TrainingPlan> {
 
     private final ExerciseDtoToExerciseMapper exerciseDtoToExerciseMapper;
 
+
     @Override
-    public TrainingPlan apply(CreateTrainingPlanDTO createTrainingPlanDTO) {
-        return map(createTrainingPlanDTO);
+    public TrainingPlan apply(UpdateTrainingPlanDTO updateTrainingPlanDTO) {
+        return map(updateTrainingPlanDTO);
     }
 
-    public TrainingPlan map(CreateTrainingPlanDTO newPlan) {
 
+    private TrainingPlan map(UpdateTrainingPlanDTO newPlan) {
         TrainingPlan plan = TrainingPlan.builder()
                 .name(newPlan.getName())
                 .duration(newPlan.getDuration())
                 .endDate(LocalDate.parse(newPlan.getEndDate(), DateTimeFormatter.ISO_DATE))
                 .startDate(LocalDate.parse(newPlan.getStartDate(), DateTimeFormatter.ISO_DATE))
                 .user((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+                .id(newPlan.getId())
                 .build();
 
         plan.setMondayExercises(newPlan.getExercises().getMonday().stream().map(e -> exerciseDtoToExerciseMapper.apply(e, plan)).collect(java.util.stream.Collectors.toList()));
@@ -42,5 +44,4 @@ public class CreatePlanDtoToTrainingPlanMapper implements Function<CreateTrainin
 
         return plan;
     }
-
 }
