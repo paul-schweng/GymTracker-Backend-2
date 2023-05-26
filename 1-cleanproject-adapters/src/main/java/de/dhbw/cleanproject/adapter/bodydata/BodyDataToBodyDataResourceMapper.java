@@ -1,7 +1,8 @@
 package de.dhbw.cleanproject.adapter.bodydata;
 
-import de.dhbw.cleanproject.adapter.bodydata.RightLeftDTO;
-import de.dhbw.cleanproject.adapter.bodydata.RightLeftResource;
+
+import de.dhbw.cleanproject.adapter.bodydata.dto.RightLeftDTO;
+import de.dhbw.cleanproject.adapter.bodydata.resource.RightLeftResource;
 import de.dhbw.cleanproject.domain.bodydata.*;
 import org.springframework.stereotype.Component;
 

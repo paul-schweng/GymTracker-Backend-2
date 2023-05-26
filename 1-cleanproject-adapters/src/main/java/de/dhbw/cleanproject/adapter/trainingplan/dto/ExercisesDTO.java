@@ -1,13 +1,13 @@
-package de.dhbw.cleanproject.adapter.trainingplan;
+package de.dhbw.cleanproject.adapter.trainingplan.dto;
 
-import de.dhbw.cleanproject.adapter.exercise.ExerciseDTO;
+import de.dhbw.cleanproject.adapter.exercise.dto.ExerciseDTO;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
-class ExercisesDTO {
+public class ExercisesDTO {
     @NotNull
     private List<ExerciseDTO> monday, tuesday, wednesday, thursday, friday, saturday, sunday;
 }

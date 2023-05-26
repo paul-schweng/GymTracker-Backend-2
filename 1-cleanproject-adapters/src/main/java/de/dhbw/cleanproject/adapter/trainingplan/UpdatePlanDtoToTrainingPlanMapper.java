@@ -1,6 +1,7 @@
 package de.dhbw.cleanproject.adapter.trainingplan;
 
 import de.dhbw.cleanproject.adapter.exercise.ExerciseDtoToExerciseMapper;
+import de.dhbw.cleanproject.adapter.trainingplan.dto.UpdateTrainingPlanDTO;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
 import de.dhbw.cleanproject.domain.user.User;
 import lombok.RequiredArgsConstructor;

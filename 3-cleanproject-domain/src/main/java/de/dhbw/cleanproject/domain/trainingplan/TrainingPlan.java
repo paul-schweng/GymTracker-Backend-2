@@ -1,7 +1,6 @@
 package de.dhbw.cleanproject.domain.trainingplan;
 
 
-import de.dhbw.cleanproject.domain.exception.CustomException;
 import de.dhbw.cleanproject.domain.exercise.Exercise;
 import de.dhbw.cleanproject.domain.user.User;
 import lombok.*;

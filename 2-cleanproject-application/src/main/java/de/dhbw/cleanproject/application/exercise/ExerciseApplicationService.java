@@ -23,7 +23,7 @@ public class ExerciseApplicationService implements ExerciseApplication {
     /**
      * If the user has performed an exercise, the method returns the latest exercise performed by the user. <br>
      * If the user has not performed the exercise, the method returns the latest exercise performed by any user, removing every property but the name of the exercise.
-     * @param partialName
+     * @param partialName Partial name of the exercise
      * @return List of Exercises
      */
     @Override

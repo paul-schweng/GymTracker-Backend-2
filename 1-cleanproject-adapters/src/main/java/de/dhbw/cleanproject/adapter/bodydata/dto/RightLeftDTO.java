@@ -1,4 +1,4 @@
-package de.dhbw.cleanproject.adapter.bodydata;
+package de.dhbw.cleanproject.adapter.bodydata.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

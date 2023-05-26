@@ -1,5 +1,6 @@
 package de.dhbw.cleanproject.adapter.exercise;
 
+import de.dhbw.cleanproject.adapter.exercise.resource.ExerciseResource;
 import de.dhbw.cleanproject.domain.exercise.Exercise;
 import org.springframework.stereotype.Component;
 

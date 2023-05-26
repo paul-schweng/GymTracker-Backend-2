@@ -1,4 +1,4 @@
-package de.dhbw.cleanproject.adapter.trainingplan;
+package de.dhbw.cleanproject.adapter.trainingplan.dto;
 
 import lombok.Data;
 

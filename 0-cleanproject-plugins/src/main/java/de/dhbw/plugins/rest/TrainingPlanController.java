@@ -1,7 +1,9 @@
 package de.dhbw.plugins.rest;
 
 import de.dhbw.cleanproject.adapter.trainingplan.*;
-import de.dhbw.cleanproject.domain.exercise.ExerciseApplication;
+import de.dhbw.cleanproject.adapter.trainingplan.dto.CreateTrainingPlanDTO;
+import de.dhbw.cleanproject.adapter.trainingplan.dto.UpdateTrainingPlanDTO;
+import de.dhbw.cleanproject.adapter.trainingplan.resource.TrainingPlanResource;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlanApplication;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +21,6 @@ import java.util.stream.Collectors;
 public class TrainingPlanController {
 
     private final TrainingPlanApplication trainingPlanApplication;
-    private final ExerciseApplication exerciseApplication;
     private final CreatePlanDtoToTrainingPlanMapper createPlanDtoToTrainingPlanMapper;
     private final TrainingPlanToPlanResourceMapper trainingPlanToPlanResourceMapper;
     private final UpdatePlanDtoToTrainingPlanMapper updateTrainingPlanDtoToTrainingPlanMapper;

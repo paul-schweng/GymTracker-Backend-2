@@ -1,5 +1,7 @@
 package de.dhbw.cleanproject.adapter.bodydata;
 
+import de.dhbw.cleanproject.adapter.bodydata.dto.BodyDataDTO;
+import de.dhbw.cleanproject.adapter.bodydata.dto.RightLeftDTO;
 import de.dhbw.cleanproject.domain.bodydata.BodyData;
 import de.dhbw.cleanproject.domain.bodydata.BodyPart;
 import de.dhbw.cleanproject.domain.bodydata.BodyPartType;

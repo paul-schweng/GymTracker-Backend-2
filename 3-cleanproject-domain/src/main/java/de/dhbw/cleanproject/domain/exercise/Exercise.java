@@ -1,6 +1,5 @@
 package de.dhbw.cleanproject.domain.exercise;
 
-import com.sun.istack.NotNull;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;

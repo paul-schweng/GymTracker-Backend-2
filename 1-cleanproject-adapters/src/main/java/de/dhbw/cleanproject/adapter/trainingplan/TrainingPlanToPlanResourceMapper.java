@@ -1,6 +1,8 @@
 package de.dhbw.cleanproject.adapter.trainingplan;
 
 import de.dhbw.cleanproject.adapter.exercise.ExerciseToExerciseResourceMapper;
+import de.dhbw.cleanproject.adapter.trainingplan.resource.ExercisesResource;
+import de.dhbw.cleanproject.adapter.trainingplan.resource.TrainingPlanResource;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

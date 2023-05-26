@@ -1,19 +1,14 @@
-package de.dhbw.cleanproject.adapter.exercise;
+package de.dhbw.cleanproject.adapter.exercise.dto;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.UUID;
 
-@Getter
-@Builder
-public class ExerciseResource {
-
+@Data
+public class ExerciseDTO {
     private UUID id;
     private String name;
     private Integer sets;
     private Integer reps;
     private Double weight;
-
 }

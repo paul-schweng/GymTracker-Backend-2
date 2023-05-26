@@ -1,6 +1,6 @@
 package de.dhbw.plugins.rest;
 
-import de.dhbw.cleanproject.adapter.bodydata.BodyDataDTO;
+import de.dhbw.cleanproject.adapter.bodydata.dto.BodyDataDTO;
 import de.dhbw.cleanproject.adapter.bodydata.BodyDataDtoToBodyDataMapper;
 import de.dhbw.cleanproject.adapter.bodydata.BodyDataToBodyDataResourceMapper;
 import de.dhbw.cleanproject.domain.bodydata.*;
