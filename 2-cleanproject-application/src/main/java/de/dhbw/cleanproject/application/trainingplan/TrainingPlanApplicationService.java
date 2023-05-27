@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +39,12 @@ public class TrainingPlanApplicationService implements TrainingPlanApplication {
         }
 
         trainingPlanRepository.deleteById(trainingPlanId);
+    }
+
+    @Override
+    public TrainingPlan getTrainingPlanByDate(LocalDate date) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return trainingPlanRepository.findByDate(date, user);
     }
 
     @Override

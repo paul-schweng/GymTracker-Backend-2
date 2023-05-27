@@ -1,15 +1,19 @@
 package de.dhbw.cleanproject.application.exercise;
 
+import de.dhbw.cleanproject.domain.exception.CustomException;
+import de.dhbw.cleanproject.domain.exercise.ActualExercise;
 import de.dhbw.cleanproject.domain.exercise.data.DateExerciseData;
 import de.dhbw.cleanproject.domain.exercise.Exercise;
 import de.dhbw.cleanproject.domain.exercise.ExerciseApplication;
 import de.dhbw.cleanproject.domain.exercise.ExerciseRepository;
+import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlanApplication;
 import de.dhbw.cleanproject.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -82,5 +86,31 @@ public class ExerciseApplicationService implements ExerciseApplication {
                 .collect(Collectors.groupingBy(DateExerciseData::getName));
 
         return groupedExercises;
+    }
+
+    @Override
+    public void addActualExercise(UUID exerciseId, ActualExercise actualExercise) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Exercise exercise = exerciseRepository.getExerciseById(exerciseId);
+
+        if(exercise == null)
+            throw new CustomException("Exercise not found", "Not Found");
+
+        if(!exercise.getTrainingPlan().getUser().getId().equals(user.getId()))
+            throw new CustomException("Exercise is not from user", "Not Authorized");
+
+        exercise.addActualExercise(actualExercise);
+        exerciseRepository.save(exercise);
+    }
+
+    @Override
+    public Set<ActualExercise> getActualExercises(LocalDate date) {
+        TrainingPlan trainingPlan = trainingPlanApplication.getTrainingPlanByDate(date);
+
+        return trainingPlan.getAllExercises().stream()
+                .flatMap(exercise -> exercise.getActualExercises().stream())
+                .filter(actualExercise -> date.equals(actualExercise.getDate()))
+                .collect(Collectors.toSet());
+
     }
 }

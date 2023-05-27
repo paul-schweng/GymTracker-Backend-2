@@ -1,12 +1,15 @@
 package de.dhbw.cleanproject.domain.exercise;
 
+import de.dhbw.cleanproject.domain.exception.CustomException;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.UUID;
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,4 +34,33 @@ public class Exercise {
     @JoinColumn(nullable = false)
     private TrainingPlan trainingPlan;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<ActualExercise> actualExercises;
+
+    public void addActualExercise(ActualExercise actualExercise) {
+        if(!isActualExerciseDateValid(actualExercise.getDate()))
+            throw new CustomException("Date of actual exercise is not valid", "Date invalid!");
+
+        Optional<ActualExercise> duplicateExercise = actualExercises.stream().filter(actual -> actual.getDate().equals(actualExercise.getDate())).findFirst();
+
+        duplicateExercise.ifPresent(exercise -> actualExercises.remove(exercise));
+
+        actualExercises.add(actualExercise);
+    }
+
+    public List<ActualExercise> getActualExercises() {
+        return actualExercises.stream()
+                .map(actualExercise -> ActualExercise.builder()
+                        .actualReps(actualExercise.getActualReps())
+                        .actualSets(actualExercise.getActualSets())
+                        .actualWeight(actualExercise.getActualWeight())
+                        .date(actualExercise.getDate())
+                        .exerciseId(id)
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    public boolean isActualExerciseDateValid(LocalDate actualExerciseDate) {
+        return !actualExerciseDate.isBefore(this.getTrainingPlan().getStartDate()) && actualExerciseDate.isBefore(this.getTrainingPlan().getEndDate());
+    }
 }

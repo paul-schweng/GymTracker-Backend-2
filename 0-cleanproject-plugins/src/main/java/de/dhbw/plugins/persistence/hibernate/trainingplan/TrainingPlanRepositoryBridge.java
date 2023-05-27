@@ -6,6 +6,7 @@ import de.dhbw.cleanproject.domain.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +36,11 @@ public class TrainingPlanRepositoryBridge implements TrainingPlanRepository {
     @Override
     public TrainingPlan findById(UUID trainingPlanId) {
         return repository.findById(trainingPlanId).orElse(null);
+    }
+
+    @Override
+    public TrainingPlan findByDate(LocalDate date, User user) {
+        return repository.findByStartDateLessThanEqualAndEndDateGreaterThanAndUser(date, date, user);
     }
 
 }

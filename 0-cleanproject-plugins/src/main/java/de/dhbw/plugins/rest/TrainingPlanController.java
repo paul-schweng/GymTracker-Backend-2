@@ -53,16 +53,4 @@ public class TrainingPlanController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
-    @GetMapping("/{date}/actual-exercises")
-    public ResponseEntity<?> getActualExercises(@PathVariable("date") String date){
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-
-    @PostMapping("/{date}/actual-exercises")
-    public ResponseEntity<?> createActualExercises(@PathVariable("date") String date){
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
 }
