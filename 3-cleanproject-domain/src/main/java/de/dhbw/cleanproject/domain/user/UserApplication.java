@@ -6,7 +6,6 @@ import java.util.UUID;
 
 public interface UserApplication extends UserDetailsService {
 
-    User findByUsername(String username);
 
     boolean existsByUsername(String username);
 

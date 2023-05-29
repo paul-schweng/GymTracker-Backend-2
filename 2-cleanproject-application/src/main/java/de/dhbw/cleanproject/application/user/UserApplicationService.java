@@ -25,11 +25,6 @@ public class UserApplicationService implements UserApplication {
     private final PasswordEncoder passwordEncoder;
 
 
-
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
     }
@@ -54,7 +49,7 @@ public class UserApplicationService implements UserApplication {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }
