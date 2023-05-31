@@ -10,9 +10,9 @@ import java.util.UUID;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
-@Setter
+@Setter(AccessLevel.PRIVATE)
 public class BodyMeasurement {
 
     @Id
@@ -21,9 +21,9 @@ public class BodyMeasurement {
     @Type(type="uuid-char")
     private UUID id;
 
-    private String date;
+    private final String date;
 
-    private Double value;
+    private final Double value;
 
 
 }

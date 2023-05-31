@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
 @Getter
-@Setter
+@Setter(AccessLevel.PRIVATE)
 @Entity
 @Builder
 public class BodyPart {
@@ -24,16 +24,13 @@ public class BodyPart {
     private UUID id;
 
     @Enumerated(EnumType.STRING)
-    private BodyPartType type;  // Enum for BodyPartType
+    private final BodyPartType type;  // Enum for BodyPartType
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BodyMeasurement> measurements = new ArrayList<>();
+    private final List<BodyMeasurement> measurements;
 
     @Column(name = "side")
     @Enumerated(EnumType.STRING)
-    private BodySide side;
+    private final BodySide side;
 
-
-
-    // ... constructors, getters, setters
 }
