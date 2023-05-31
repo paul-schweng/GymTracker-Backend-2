@@ -2,6 +2,7 @@ package de.dhbw.cleanproject.application.exercise;
 
 import de.dhbw.cleanproject.domain.exception.CustomException;
 import de.dhbw.cleanproject.domain.exercise.ActualExercise;
+import de.dhbw.cleanproject.domain.exercise.data.ActualExerciseDTO;
 import de.dhbw.cleanproject.domain.exercise.data.DateExerciseData;
 import de.dhbw.cleanproject.domain.exercise.Exercise;
 import de.dhbw.cleanproject.domain.exercise.ExerciseApplication;
@@ -104,7 +105,7 @@ public class ExerciseApplicationService implements ExerciseApplication {
     }
 
     @Override
-    public Set<ActualExercise> getActualExercises(LocalDate date) {
+    public Set<ActualExerciseDTO> getActualExercises(LocalDate date) {
         TrainingPlan trainingPlan = trainingPlanApplication.getTrainingPlanByDate(date);
 
         return trainingPlan.getAllExercises().stream()

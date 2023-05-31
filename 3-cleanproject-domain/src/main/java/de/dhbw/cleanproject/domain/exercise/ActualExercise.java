@@ -23,7 +23,5 @@ public class ActualExercise {
     private final Integer actualWeight;
     private final LocalDate date;
 
-    @Transient
-    private final UUID exerciseId;
-
 }
+

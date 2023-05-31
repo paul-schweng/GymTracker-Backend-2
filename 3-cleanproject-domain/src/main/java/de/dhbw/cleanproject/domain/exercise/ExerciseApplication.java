@@ -1,5 +1,6 @@
 package de.dhbw.cleanproject.domain.exercise;
 
+import de.dhbw.cleanproject.domain.exercise.data.ActualExerciseDTO;
 import de.dhbw.cleanproject.domain.exercise.data.DateExerciseData;
 
 import java.time.LocalDate;
@@ -16,5 +17,5 @@ public interface ExerciseApplication {
 
     void addActualExercise(UUID exerciseId, ActualExercise actualExercise);
 
-    Set<ActualExercise> getActualExercises(LocalDate date);
+    Set<ActualExerciseDTO> getActualExercises(LocalDate date);
 }

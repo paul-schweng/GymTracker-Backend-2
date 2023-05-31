@@ -1,6 +1,7 @@
 package de.dhbw.cleanproject.domain.exercise;
 
 import de.dhbw.cleanproject.domain.exception.CustomException;
+import de.dhbw.cleanproject.domain.exercise.data.ActualExerciseDTO;
 import de.dhbw.cleanproject.domain.trainingplan.TrainingPlan;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -48,9 +49,9 @@ public class Exercise {
         actualExercises.add(actualExercise);
     }
 
-    public List<ActualExercise> getActualExercises() {
+    public List<ActualExerciseDTO> getActualExercises() {
         return actualExercises.stream()
-                .map(actualExercise -> ActualExercise.builder()
+                .map(actualExercise -> ActualExerciseDTO.builder()
                         .actualReps(actualExercise.getActualReps())
                         .actualSets(actualExercise.getActualSets())
                         .actualWeight(actualExercise.getActualWeight())
