@@ -27,7 +27,7 @@ public class ExerciseRepositoryBridge implements ExerciseRepository {
     }
 
     @Override
-    public List<Exercise> getExercises() {
+    public List<Exercise> getExercisesOfUser() {
         return null;
     }
 

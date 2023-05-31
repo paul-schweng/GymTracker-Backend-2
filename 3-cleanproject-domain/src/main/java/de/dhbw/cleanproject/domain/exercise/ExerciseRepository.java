@@ -8,7 +8,7 @@ public interface ExerciseRepository {
     List<Exercise> getAllExercisesByPartialName(String partialName);
 
     Exercise getExerciseById(UUID id);
-    List<Exercise> getExercises();
+    List<Exercise> getExercisesOfUser();
 
     void save(Exercise exercise);
 }
